@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
+[RequireComponent(typeof(Image))]
 public class PlayTouchPanel : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
 	public GameObject mTapEffect;

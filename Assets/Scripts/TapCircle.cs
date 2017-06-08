@@ -2,17 +2,16 @@
 using System.Collections;
 
 [RequireComponent(typeof(SpriteRenderer))]
-[RequireComponent(typeof(CircleCollider2D))]
+[RequireComponent(typeof(Collider2D))]
 public class TapCircle : MonoBehaviour
 {
     SpriteRenderer mSpriteRenderer;
-    CircleCollider2D mCircleCollider;
-    public float mAnimationTime = 0.4f; //タップアニメーション時間
+    Collider2D mCircleCollider;
 
     void Awake()
     {
         mSpriteRenderer = transform.GetComponent<SpriteRenderer>();
-        mCircleCollider = transform.GetComponent<CircleCollider2D>();
+        mCircleCollider = transform.GetComponent<Collider2D>();
     }
 
     void Start()
@@ -20,8 +19,12 @@ public class TapCircle : MonoBehaviour
         Invoke("unenabledTrigger", 0.05f);
 
         mSpriteRenderer.material.SetFloat("_StartTime", Time.time);
-        mSpriteRenderer.material.SetFloat("_AnimationTime", mAnimationTime);
-        Destroy(transform.gameObject, mAnimationTime);
+
+        float animationTime = mSpriteRenderer.material.GetFloat("_AnimationTime");
+        float destroyTime = animationTime;
+        destroyTime -= mSpriteRenderer.material.GetFloat("_StartWidth") * animationTime;
+        destroyTime += mSpriteRenderer.material.GetFloat("_Width") * animationTime;
+        Destroy(transform.gameObject, destroyTime);
     }
 
     public void unenabledTrigger()
