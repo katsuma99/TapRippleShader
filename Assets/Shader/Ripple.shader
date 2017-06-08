@@ -2,12 +2,12 @@
 	Properties
 	{
 		[PerRendererData] _MainTex("Sprite Texture", 2D) = "white" {}
-		_StartTime("StartTime", Float) = 0
-		_AnimationTime("AnimationTime", Float) = 1.5
-			_Width("Width", Float) = 0.3
-			_StartWidth("StartWidth", Float) = 0.3
-			[MaterialToggle] _isAlpha("isAlpha",Float) = 1
-			[MaterialToggle] _isColorShift("isColorShift",Float) = 1
+	[HideInInspector]_StartTime("StartTime", Float) = 0
+		_AnimationTime("AnimationTime", Range(0.1, 10.0)) = 1.5
+			_Width("Width", Range(0.1, 3.0)) = 0.3
+			_StartWidth("StartWidth", Range(0, 1.0)) = 0.3
+			[Toggle] _isAlpha("isAlpha",Float) = 1
+			[Toggle] _isColorShift("isColorShift",Float) = 1
 		[MaterialToggle] PixelSnap("Pixel snap", Float) = 1
 	}
 
@@ -83,7 +83,7 @@
 		float alpha = 1;
 		if (_isAlpha == 1) 
 		{
-			alpha = clamp((_Width - dis) * 3, 0.1, 1);
+			alpha = clamp((_Width - dis) * 3, 0.1, 1.5);
 		}
 
 		fixed3 shiftColor = color;
